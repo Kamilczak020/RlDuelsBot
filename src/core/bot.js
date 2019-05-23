@@ -1,5 +1,5 @@
 'use strict';
-import { Client, TextChannel } from 'discord.js';
+import { Client } from 'discord.js';
 import { Subject } from 'rxjs';
 import { Message } from '../model/message';
 import { isNil } from 'lodash';
