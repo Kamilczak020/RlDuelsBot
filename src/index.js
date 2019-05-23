@@ -6,6 +6,7 @@ import { createDatabase } from './core/database';
 import { createLogger } from './core/logger';
 
 import { EchoParser } from './parser/echoParser';
+import { SplitParser } from './parser/splitParser';
 import { EchoHandler } from './handler/echoHandler';
 
 const logger = createLogger();
@@ -15,6 +16,7 @@ const bot = new Bot(config, logger, database);
 
 // register parsers
 bot.registerParser(new EchoParser(logger, config.parsers.echoParser));
+bot.registerParser(new SplitParser(logger, config.parsers.splitParser));
 
 // register handlers
 bot.registerHandler(new EchoHandler(logger, config.handlers.echoHandler));
