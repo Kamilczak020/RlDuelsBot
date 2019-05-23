@@ -49,12 +49,23 @@ database:
   host: '127.0.0.1:5432'
   username: 'exampleUser'
   password: 'examplePassword'
+
+parsers:
+  echoParser:
+    name: 'echoParser'
+    commands:
+      - '!echo'
+
+handlers:
+  echoHandler:
+    name: 'echoHandler'
+    command: '!echo'
 ```
 
 ## Roadmap
 - [x] Implement base bot skeleton
 - [x] Attach CodeClimate
-- [ ] Implement handlers and parsers for bot functions and commands
+- [x] Implement handlers and parsers for bot functions and commands
 - [ ] Implement custom command handling and execution
 - [ ] Move build into a docker container
 - [ ] Create a GitPod for easier maintainability
