@@ -119,6 +119,6 @@ export class Bot {
 
   registerHandler(handler) {
     this.handlers.push(handler);
-    this.logger.info({ name: handler.name }, 'Registered parser');
+    this.logger.info({ name: handler.name }, 'Registered handler');
   }
 }
