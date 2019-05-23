@@ -55,6 +55,9 @@ parsers:
     name: 'echoParser'
     commands:
       - '!echo'
+  splitParser:
+    name: 'splitParser'
+    commands:
 
 handlers:
   echoHandler:
