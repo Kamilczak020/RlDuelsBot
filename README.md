@@ -55,6 +55,9 @@ parsers:
     name: 'echoParser'
     commands:
       - '!echo'
+      - '!kick'
+      - '!ban'
+      - '!urban'
   splitParser:
     name: 'splitParser'
     commands:
@@ -69,6 +72,9 @@ handlers:
   banHandler:
     name: 'banHandler'
     command: '!ban'
+  urbanHandler:
+    name: 'urbanHandler'
+    command: '!urban'
 ```
 
 ## Roadmap
