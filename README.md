@@ -63,6 +63,12 @@ handlers:
   echoHandler:
     name: 'echoHandler'
     command: '!echo'
+  kickHandler:
+    name: 'kickHandler'
+    command: '!kick'
+  banHandler:
+    name: 'banHandler'
+    command: '!ban'
 ```
 
 ## Roadmap
