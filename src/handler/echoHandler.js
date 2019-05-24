@@ -6,11 +6,8 @@ import { Message } from '../model/message';
 export class EchoHandler extends BaseHandler {
   async handle(cmd) {
     const data = await CommandData.findOne({ where: { CommandId: cmd.dataValues.id } });
-    console.log(data);
     const message = await Message.findOne({ where: { id: cmd.dataValues.MessageId }});
-    return {
-      channel: message.dataValues.channel,
-      body: data.dataValues.value
-    };
+
+    return await this.replyToChannel(message.dataValues.channel, data.dataValues.value);
   }
 }
