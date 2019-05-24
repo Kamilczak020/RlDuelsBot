@@ -2,19 +2,17 @@
 import { Client } from 'discord.js';
 import { Subject } from 'rxjs';
 import { Message } from '../model/message';
-import { isNil } from 'lodash';
 
 export class Bot {
   constructor(config, logger, database) {
     this.config = config;
     this.logger = logger;
-    this.logger.info('Creating bot.');
+    this.logger.debug('Creating bot.');
 
     this.database = database;
 
     this.commands = new Subject();
     this.incoming = new Subject();
-    this.outgoing = new Subject();
 
     this.parsers = [];
     this.handlers = [];
@@ -26,7 +24,7 @@ export class Bot {
    * Starts the bot service, attaches event handlers.
    */
   async start() {
-    this.logger.info('Starting bot.');
+    this.logger.debug('Starting bot.');
 
     const streamError = (err) => {
       this.logger.error(err, 'bot stream did not handle error');
@@ -34,7 +32,6 @@ export class Bot {
 
     this.commands.subscribe((next) => this.handleCommand(next).catch(streamError));
     this.incoming.subscribe((next) => this.handleIncoming(next).catch(streamError));
-    this.outgoing.subscribe((next) => this.handleOutgoing(next).catch(streamError));
 
     this.client.on('ready', () => this.logger.debug('Discord listener is ready'));
     this.client.on('message', (input) => this.convertMessage(input).then((msg) => this.incoming.next(msg)));
@@ -48,13 +45,16 @@ export class Bot {
   async stop() {
     this.commands.complete();
     this.incoming.complete();
-    this.outgoing.complete();
 
     this.client.removeAllListeners('ready');
     this.client.removeAllListeners('message');
     await this.client.destroy();
   }
 
+  /**
+   * Runs the message through parsers, pushes generated commands to the observable.
+   * @param {*} msg message to parse
+   */
   async handleIncoming(msg) {
     this.parsers.forEach(async (parser) => {
       if (await parser.check(msg)) {
@@ -72,16 +72,15 @@ export class Bot {
     this.logger.debug({ msg }, 'Message did not produce any commands');
   }
 
+    /**
+   * Runs the message through handlers.
+   * @param {*} cmd command to handle
+   */
   async handleCommand(cmd) {
     this.handlers.forEach(async (handler) => {
       if (await handler.check(cmd)) {
         try {
-          const response = await handler.handle(cmd);
-          console.log(response);
-          if (!isNil(response)) {
-            this.outgoing.next(response);
-          }
-          return;
+          return await handler.handle(cmd);
         } catch (err) {
           this.logger.error('Handler failed to handle the message');
         }
@@ -89,10 +88,6 @@ export class Bot {
     });
 
     this.logger.debug({ cmd }, 'Command was not handled');
-  }
-
-  async handleOutgoing(data) {
-    this.client.channels.get(data.channel).send(data.body);
   }
 
   /**
@@ -107,18 +102,31 @@ export class Bot {
       body: msg.content,
       channel: msg.channel.id,
       createdAt: msg.createdAt,
+      guild: msg.guild.id,
       id: msg.id,
       reactions: msg.reactions.map((r) => r.emoji.name)
     });
   }
 
-  registerParser(parser) {
+  /**
+   * Registers a parser in the bot
+   * @param {*} parserDefinition parser definition to register
+   * @param {*} options parser options
+   */
+  registerParser(parserDefinition, options) {
+    const parser = new parserDefinition(this.client, this.logger, options);
     this.parsers.push(parser);
-    this.logger.info({ name: parser.name }, 'Registered parser');
+    this.logger.debug({ name: parser.name }, 'Registered parser');
   }
 
-  registerHandler(handler) {
+  /**
+   * Registers a handler in the bot
+   * @param {*} handlerDefinition handler definition to register
+   * @param {*} options handler options
+   */
+  registerHandler(handlerDefinition, options) {
+    const handler = new handlerDefinition(this.client, this.logger, options);
     this.handlers.push(handler);
-    this.logger.info({ name: handler.name }, 'Registered handler');
+    this.logger.debug({ name: handler.name }, 'Registered handler');
   }
 }

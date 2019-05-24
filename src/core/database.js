@@ -13,7 +13,7 @@ export function createDatabase(options) {
     username: options.username
   });
 
-  // Link models to database here
+  // Link models to database
   const models = {
     Message: Message.init(sequelize, Sequelize),
     Command: Command.init(sequelize, Sequelize),
