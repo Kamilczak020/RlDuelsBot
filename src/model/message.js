@@ -7,6 +7,7 @@ export class Message extends Model {
       author: DataTypes.STRING,
       body: DataTypes.STRING,
       channel: DataTypes.STRING,
+      guild: DataTypes.STRING,
       createdAt: DataTypes.DATE,
       id: {
         type: DataTypes.STRING,
