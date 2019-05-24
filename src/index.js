@@ -11,6 +11,7 @@ import { SplitParser } from './parser/splitParser';
 import { EchoHandler } from './handler/echoHandler';
 import { KickHandler } from './handler/kickHandler';
 import { BanHandler } from './handler/banHandler';
+import { UrbanHandler } from './handler/urbanHandler';
 
 const logger = createLogger();
 const config = loadConfig('./build/config.yml');
@@ -32,6 +33,7 @@ bot.registerParser(SplitParser, config.parsers.splitParser);
 bot.registerHandler(EchoHandler, config.handlers.echoHandler);
 bot.registerHandler(KickHandler, config.handlers.kickHandler);
 bot.registerHandler(BanHandler, config.handlers.banHandler);
+bot.registerHandler(UrbanHandler, config.handlers.urbanHandler);
 
 if (process.argv[2] === 'sync') {
   try {
