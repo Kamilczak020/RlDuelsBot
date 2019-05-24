@@ -4,7 +4,7 @@ import { mustExist } from '../util';
 import { Command } from '../model/command';
 import { CommandData } from '../model/commandData';
 
-export class EchoParser extends BaseParser {
+export class SplitParser extends BaseParser {
   async parse(msg) {
     const cmd = mustExist(msg.dataValues.body.split(' ')[0]);
     const args = mustExist(msg.dataValues.body.split(' ').slice(1));
@@ -15,7 +15,7 @@ export class EchoParser extends BaseParser {
     });
     await command.save();
 
-    args.forEach((arg) => {
+    args.forEach(async (arg) => {
       const commandData = await new CommandData({
         key: 'body',
         value: arg,
