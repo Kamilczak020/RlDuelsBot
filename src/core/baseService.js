@@ -15,4 +15,9 @@ export class BaseService {
   async replyToChannel(channel, message) {
     await this.client.channels.get(channel).send(message);
   }
+
+  async getData(cmd, key) {
+    const data = await CommandData.findOne({ where: { CommandId: cmd.dataValues.id, key } });
+    return data.dataValues.value;
+  }
 }

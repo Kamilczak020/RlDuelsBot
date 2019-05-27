@@ -6,12 +6,12 @@ import { isNil } from 'lodash';
 
 export class KickHandler extends BaseHandler {
   async handle(cmd) {
-    const data = await CommandData.findOne({ where: { CommandId: cmd.dataValues.id } });
+    const body = await this.getData(cmd, 'body');
     const message = await Message.findOne({ where: { id: cmd.dataValues.MessageId }});
     const channel = message.dataValues.channel;
 
     const regex = /<@(\d*)>/g;
-    const matched = await regex.exec(data.dataValues.value);
+    const matched = await regex.exec(body);
     if (isNil(matched)) {
       return await this.replyToChannel(channel, 'User was not found.');
     }

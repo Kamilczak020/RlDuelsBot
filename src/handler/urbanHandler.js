@@ -8,10 +8,9 @@ import { RichEmbed } from 'discord.js';
 
 export class UrbanHandler extends BaseHandler {
   async handle(cmd) {
-    const data = await CommandData.findOne({ where: { CommandId: cmd.dataValues.id } });
+    const term = await this.getData(cmd, 'body');
     const message = await Message.findOne({ where: { id: cmd.dataValues.MessageId }});
     const channel = message.dataValues.channel;
-    const term = data.dataValues.value;
 
     const response = await axios.get(`http://api.urbandictionary.com/v0/define?term=${encodeURIComponent(term)}`);
     if (isEmpty(response.data.list)) {

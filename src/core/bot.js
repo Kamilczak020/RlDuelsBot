@@ -109,24 +109,21 @@ export class Bot {
   }
 
   /**
-   * Registers a parser in the bot
-   * @param {*} parserDefinition parser definition to register
-   * @param {*} options parser options
+   * Registers a service in the bot
+   * @param {*} serviceDefinition service definition to register
+   * @param {*} options service options
    */
-  registerParser(parserDefinition, options) {
-    const parser = new parserDefinition(this.client, this.logger, options);
-    this.parsers.push(parser);
-    this.logger.debug({ name: parser.name }, 'Registered parser');
-  }
+  registerService(serviceDefinition, serviceType, options) {
+    const service = new serviceDefinition(this.client, this.logger, options);
+    switch(serviceType) {
+      case 'parser':
+        this.parsers.push(service);
+        break;
+      case 'handler':
+        this.handlers.push(service);
+        break;
+    }
 
-  /**
-   * Registers a handler in the bot
-   * @param {*} handlerDefinition handler definition to register
-   * @param {*} options handler options
-   */
-  registerHandler(handlerDefinition, options) {
-    const handler = new handlerDefinition(this.client, this.logger, options);
-    this.handlers.push(handler);
-    this.logger.debug({ name: handler.name }, 'Registered handler');
+    this.logger.debug(`Registered service: ${service.name}`);
   }
 }

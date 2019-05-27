@@ -26,14 +26,14 @@ database.sequelize.authenticate().then((errors) => {
 })
 
 // register parsers
-bot.registerParser(EchoParser, config.parsers.echoParser);
-bot.registerParser(SplitParser, config.parsers.splitParser);
+bot.registerService(EchoParser, 'parser', config.parsers.echoParser);
+bot.registerService(SplitParser, 'parser', config.parsers.splitParser);
 
 // register handlers
-bot.registerHandler(EchoHandler, config.handlers.echoHandler);
-bot.registerHandler(KickHandler, config.handlers.kickHandler);
-bot.registerHandler(BanHandler, config.handlers.banHandler);
-bot.registerHandler(UrbanHandler, config.handlers.urbanHandler);
+bot.registerService(EchoHandler, 'handler', config.handlers.echoHandler);
+bot.registerService(KickHandler, 'handler', config.handlers.kickHandler);
+bot.registerService(BanHandler, 'handler', config.handlers.banHandler);
+bot.registerService(UrbanHandler, 'handler', config.handlers.urbanHandler);
 
 if (process.argv[2] === 'sync') {
   try {
