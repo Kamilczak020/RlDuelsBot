@@ -1,11 +1,11 @@
 'use strict';
 import { BaseHandler } from './baseHandler';
-import { CommandData } from '../../build/model/commandData';
 import { Message } from '../model/message';
 import { isNil } from 'lodash';
 
-export class KickHandler extends BaseHandler {
+export class UserActionHandler extends BaseHandler {
   async handle(cmd) {
+    const command = cmd.dataValues.name;
     const body = await this.getData(cmd, 'body');
     const message = await Message.findOne({ where: { id: cmd.dataValues.MessageId }});
     const channel = message.dataValues.channel;
@@ -21,11 +21,22 @@ export class KickHandler extends BaseHandler {
       return await this.replyToChannel(channel, 'User was not found.');
     }
 
-    if (!user.kickable) {
-      return await this.replyToChannel(channel, 'User cannot be kicked.');
-    }
+    switch (command) {
+      case 'kick': {
+        if (!user.kickable) {
+          return await this.replyToChannel(channel, 'User cannot be kicked.');
+        }
+        await user.kick();
+        return await this.replyToChannel(channel, 'User kicked successfully.')
+      }
 
-    await user.kick();
-    return await this.replyToChannel(channel, 'User kicked successfully.')
+      case 'ban': {
+        if (!user.bannable) {
+          return await this.replyToChannel(channel, 'User cannot be banned.');
+        }
+        await user.ban();
+        return await this.replyToChannel(channel, 'User banned successfully.')
+      }
+    }
   }
 }

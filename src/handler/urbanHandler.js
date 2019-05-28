@@ -1,7 +1,6 @@
 'use strict';
 import * as axios from 'axios';
 import { BaseHandler } from './baseHandler';
-import { CommandData } from '../../build/model/commandData';
 import { Message } from '../model/message';
 import { isEmpty } from 'lodash';
 import { RichEmbed } from 'discord.js';

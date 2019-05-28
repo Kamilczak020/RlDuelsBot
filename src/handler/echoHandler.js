@@ -1,6 +1,5 @@
 'use strict';
 import { BaseHandler } from './baseHandler';
-import { CommandData } from '../../build/model/commandData';
 import { Message } from '../model/message';
 
 export class EchoHandler extends BaseHandler {
