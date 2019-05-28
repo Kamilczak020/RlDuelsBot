@@ -9,9 +9,8 @@ import { createLogger } from './core/logger';
 import { EchoParser } from './parser/echoParser';
 import { SplitParser } from './parser/splitParser';
 import { EchoHandler } from './handler/echoHandler';
-import { KickHandler } from './handler/kickHandler';
-import { BanHandler } from './handler/banHandler';
 import { UrbanHandler } from './handler/urbanHandler';
+import { UserActionHandler } from '../build/handler/userActionHandler';
 
 const logger = createLogger();
 const config = loadConfig('./build/config.yml');
@@ -31,8 +30,7 @@ bot.registerService(SplitParser, 'parser', config.parsers.splitParser);
 
 // register handlers
 bot.registerService(EchoHandler, 'handler', config.handlers.echoHandler);
-bot.registerService(KickHandler, 'handler', config.handlers.kickHandler);
-bot.registerService(BanHandler, 'handler', config.handlers.banHandler);
+bot.registerService(UserActionHandler, 'handler', config.handlers.userActionHandler);
 bot.registerService(UrbanHandler, 'handler', config.handlers.urbanHandler);
 
 if (process.argv[2] === 'sync') {
