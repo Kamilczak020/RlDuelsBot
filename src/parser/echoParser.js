@@ -6,7 +6,7 @@ import { CommandData } from '../model/commandData';
 
 export class EchoParser extends BaseParser {
   async parse(msg) {
-    const cmd = mustExist(msg.dataValues.body.split(' ')[0]);
+    const cmd = mustExist(this.stripPrefix(msg.dataValues.body.split(' ')[0]));
     const body = mustExist(msg.dataValues.body.split(' ').slice(1).join(' '));
 
     const command = await new Command({

@@ -6,7 +6,7 @@ import { CommandData } from '../model/commandData';
 
 export class SplitParser extends BaseParser {
   async parse(msg) {
-    const cmd = mustExist(msg.dataValues.body.split(' ')[0]);
+    const cmd = mustExist(this.stripPrefix(msg.dataValues.body.split(' ')[0]));
     const args = mustExist(msg.dataValues.body.split(' ').slice(1));
 
     const command = await new Command({
