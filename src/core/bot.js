@@ -124,6 +124,6 @@ export class Bot {
         break;
     }
 
-    this.logger.debug(`Registered service: ${service.name}`);
+    this.logger.debug(`Registered service: ${service.options.name}`);
   }
 }

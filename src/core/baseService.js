@@ -6,18 +6,4 @@ export class BaseService {
     this.logger = logger;
     this.options = options;
   }
-
-  /**
-   * Sends a reply to a given discord channel
-   * @param {*} channel channel to reply to
-   * @param {*} message message to reply with
-   */
-  async replyToChannel(channel, message) {
-    await this.client.channels.get(channel).send(message);
-  }
-
-  async getData(cmd, key) {
-    const data = await CommandData.findOne({ where: { CommandId: cmd.dataValues.id, key } });
-    return data.dataValues.value;
-  }
 }
