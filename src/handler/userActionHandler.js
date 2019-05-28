@@ -21,22 +21,25 @@ export class UserActionHandler extends BaseHandler {
       return await this.replyToChannel(channel, 'User was not found.');
     }
 
+    let response;
     switch (command) {
       case 'kick': {
         if (!user.kickable) {
-          return await this.replyToChannel(channel, 'User cannot be kicked.');
+          response = 'User cannot be kicked.';
         }
         await user.kick();
-        return await this.replyToChannel(channel, 'User kicked successfully.')
+        response = 'User kicked successfully.';
       }
 
       case 'ban': {
         if (!user.bannable) {
-          return await this.replyToChannel(channel, 'User cannot be banned.');
+          response = 'User cannot be banned.';
         }
         await user.ban();
-        return await this.replyToChannel(channel, 'User banned successfully.')
+        response = 'User banned successfully.';
       }
     }
+
+    return await this.replyToChannel(channel, response);
   }
 }
