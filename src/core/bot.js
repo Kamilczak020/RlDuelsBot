@@ -4,12 +4,10 @@ import { Subject } from 'rxjs';
 import { Message } from '../model/message';
 
 export class Bot {
-  constructor(config, logger, database) {
+  constructor(config, logger) {
     this.config = config;
     this.logger = logger;
     this.logger.debug('Creating bot.');
-
-    this.database = database;
 
     this.commands = new Subject();
     this.incoming = new Subject();
@@ -102,7 +100,6 @@ export class Bot {
       body: msg.content,
       channel: msg.channel.id,
       createdAt: msg.createdAt,
-      guild: msg.guild.id,
       id: msg.id,
       reactions: msg.reactions.map((r) => r.emoji.name)
     });

@@ -10,5 +10,5 @@
       }
     ]
   ],
-  "plugins": ["transform-regenerator"],
+  "plugins": ["@babel/plugin-transform-regenerator"],
 }

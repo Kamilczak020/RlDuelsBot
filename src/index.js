@@ -15,7 +15,7 @@ import { UserActionHandler } from '../build/handler/userActionHandler';
 const logger = createLogger();
 const config = loadConfig('./build/config.yml');
 const database = createDatabase(config.database);
-const bot = new Bot(config, logger, database);
+const bot = new Bot(config, logger);
 
 database.sequelize.authenticate().then((errors) => {
   if (!isNil(errors)) {
