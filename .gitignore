@@ -1,3 +1,4 @@
 node_modules/*
 build/*
 config/config.yml
+.nyc_output/*
