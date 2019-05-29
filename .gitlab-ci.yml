@@ -1,0 +1,21 @@
+image: node:latest
+  
+stages:
+  - build
+  - test
+
+cache:
+  paths:
+    - node_modules/
+
+install-dependencies:
+  stage: build
+  script:
+    - yarn
+  artifacts:
+    paths:
+      - node_modules/
+
+run-tests:
+  stage: test
+  script: yarn run coverage

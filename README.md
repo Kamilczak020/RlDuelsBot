@@ -1,6 +1,7 @@
 # RLDuelsBot
 [![Maintainability](https://api.codeclimate.com/v1/badges/67c0a3ae434c3fb8f0b7/maintainability)](https://codeclimate.com/github/Kamilczak020/RLDuelsBot/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/67c0a3ae434c3fb8f0b7/test_coverage)](https://codeclimate.com/github/Kamilczak020/RLDuelsBot/test_coverage)
+[![pipeline status](https://gitlab.com/Kamilczak020/rlduelsbot/badges/master/pipeline.svg)](https://gitlab.com/Kamilczak020/rlduelsbot/commits/master)
+[![coverage report](https://gitlab.com/Kamilczak020/rlduelsbot/badges/master/coverage.svg)](https://gitlab.com/Kamilczak020/rlduelsbot/commits/master)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/Kamilczak020/RLDuelsBot.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Kamilczak020/RLDuelsBot/alerts/)
 
 ###### The official RL Duels Discord Server bot, for all things utility.
