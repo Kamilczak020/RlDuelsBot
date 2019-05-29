@@ -18,6 +18,4 @@ install-dependencies:
 
 run-tests:
   stage: test
-  script:
-    - ls src/parser
-    - yarn run coverage
+  script: yarn run coverage
