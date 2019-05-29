@@ -1,7 +1,7 @@
 'use strict';
 import sinon from 'sinon';
 import { expect } from 'chai';
-import { BaseParser } from '../../src/parser/BaseParser';
+import { BaseParser } from '../../src/parser/baseParser';
 import { MessageMock } from '../model/message.test';
 import { Client } from 'discord.js';
 
