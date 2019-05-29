@@ -66,27 +66,29 @@ parsers:
 handlers:
   echoHandler:
     name: 'echoHandler'
-    command: '!echo'
-  kickHandler:
-    name: 'kickHandler'
-    command: '!kick'
-  banHandler:
-    name: 'banHandler'
-    command: '!ban'
+    commands:
+      - '!echo'
+  userActionHandler:
+    name: 'userActionHandler'
+    commands: 
+      - '!kick'
+      - 'ban'
   urbanHandler:
     name: 'urbanHandler'
-    command: '!urban'
+    commands:
+      - '!urban'
 ```
 
 ## Roadmap
 - [x] Implement base bot skeleton
 - [x] Attach CodeClimate
 - [x] Implement handlers and parsers for bot functions and commands
+- [x] Write tests
+- [x] Introduce a CI pipeline
 - [ ] Implement custom command handling and execution
 - [ ] Move build into a docker container
 - [ ] Create a GitPod for easier maintainability
-- [ ] Do a solid test coverage
-- [ ] Introduce a full CI/CD pipeline
+- [ ] Introduce a CD pipeline
 
 ## How to contribute
 IF you choose to contribute to the repository, you can do so by posting issues and sending in PRs, 
