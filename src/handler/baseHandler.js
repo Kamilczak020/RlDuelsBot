@@ -17,6 +17,7 @@ export class BaseHandler extends BaseService {
    * @param {*} channel channel to reply to
    * @param {*} message message to reply with
    */
+  /* istanbul ignore next */
   async replyToChannel(channel, message) {
     await this.client.channels.get(channel).send(message);
   }
@@ -26,6 +27,7 @@ export class BaseHandler extends BaseService {
    * @param {*} cmd command to find data for
    * @param {*} key command data key
    */
+  /* istanbul ignore next */
   async getData(cmd, key) {
     const data = await CommandData.findOne({ where: { CommandId: cmd.dataValues.id, key } });
     return data.dataValues.value;
