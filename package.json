@@ -6,6 +6,10 @@
   "repository": "https://github.com/Kamilczak020/RLDuelsBot",
   "author": "Kamil Solecki <kamilczak020@gmail.com>",
   "license": "MIT",
+  "nyc": {
+    "include": "src",
+    "exclude": "src/model/*"
+  },
   "scripts": {
     "start": "node build/index.js",
     "sync-start": "node build/index.js sync",
