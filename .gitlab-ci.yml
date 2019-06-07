@@ -22,7 +22,7 @@ run-tests:
 
 build-and-push-docker-image:
   stage: build-docker
-  only: master
+  only: [master]
   image: docker:git
   services:
     - docker:dind
