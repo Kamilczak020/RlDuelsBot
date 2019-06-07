@@ -27,7 +27,7 @@ build-and-push-docker-image:
   services:
     - docker:dind
   script:
-    - docker login -u $DOCKERUB_LOGIN -p $DOCKERHUB_PASSWORD
+    - docker login --username $DOCKERUB_LOGIN --password $DOCKERHUB_PASSWORD
     - docker build -t rlduelsbot .
     - docker tag $CI_PROJECT_PATH $CI_PROJECT_PATH:$CI_COMMIT_SHA
     - docker push $CI_PROJECT_PATH:$CI_COMMIT_SHA
