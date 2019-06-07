@@ -38,6 +38,12 @@ gulp watch
 ```
 which will keep track of all file changes in the source directory and dynamically build the files in the background.
 
+Before you launch your application, you will also need to initialize the database with appropriate tables.
+To do that, you can execute the included `init-db.sql` file (Postgres), by running
+```
+psql -h database_host -U database_username -d database_name -a -f init-db.sql
+```
+
 Besides all of that, you also need a bot `config.yml` file, that is to be placed in the `build` directory.
 An example config would look as such:
 ```
