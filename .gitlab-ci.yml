@@ -3,6 +3,7 @@ image: node:latest
 stages:
   - build
   - test
+  - build-docker
 
 cache:
   paths:
@@ -10,8 +11,7 @@ cache:
 
 install-dependencies:
   stage: build
-  script:
-    - yarn
+  script: yarn
   artifacts:
     paths:
       - node_modules/
@@ -19,3 +19,15 @@ install-dependencies:
 run-tests:
   stage: test
   script: yarn run coverage
+
+build-and-push-docker-image:
+  stage: build-docker
+  only: master
+  image: docker:git
+  services:
+    - docker:dind
+  script:
+    - docker login $DOCKERUB_LOGIN $DOCKERHUB_PASSWORD
+    - docker build -t rlduelsbot .
+    - docker tag $CI_PROJECT_PATH $CI_PROJECT_PATH:$CI_COMMIT_SHA
+    - docker push $CI_PROJECT_PATH:$CI_COMMIT_SHA
