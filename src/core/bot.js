@@ -4,8 +4,7 @@ import { Subject } from 'rxjs';
 import { Message } from '../model/message';
 
 export class Bot {
-  constructor(config, logger) {
-    this.config = config;
+  constructor(logger) {
     this.logger = logger;
     this.logger.debug('Creating bot.');
 
@@ -34,7 +33,7 @@ export class Bot {
     this.client.on('ready', () => this.logger.debug('Discord listener is ready'));
     this.client.on('message', (input) => this.convertMessage(input).then((msg) => this.incoming.next(msg)));
 
-    this.client.login(this.config.bot.token);
+    this.client.login(process.env.DISCORD_TOKEN);
   }
 
   /**

@@ -4,13 +4,13 @@ import { Message } from '../model/message';
 import { Command } from '../model/command';
 import { CommandData } from '../model/commandData';
 
-export function createDatabase(options) {
+export function createDatabase() {
   const sequelize = new Sequelize({
-    database: options.database,
-    dialect: options.dialect,
-    host: options.host,
-    password: options.password,
-    username: options.username
+    database: process.env.DB_NAME,
+    dialect: 'postgres',
+    host: process.env.DB_HOST,
+    password: process.env.DB_PASSWORD,
+    username: process.env.DB_USERNAME
   });
 
   // Link models to database

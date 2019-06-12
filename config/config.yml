@@ -1,0 +1,28 @@
+parsers:
+  echoParser:
+    name: 'echoParser'
+    prefix: '!'
+    commands:
+      - 'echo'
+      - 'kick'
+      - 'ban'
+      - 'urban'
+  splitParser:
+    name: 'splitParser'
+    prefix: '!'
+    commands:
+
+handlers:
+  echoHandler:
+    name: 'echoHandler'
+    commands: 
+      - 'echo'
+  urbanHandler:
+    name: 'urbanHandler'
+    commands: 
+      - 'urban'
+  userActionHandler:
+    name: 'userActionHandler'
+    commands:
+      - 'ban'
+      - 'kick'

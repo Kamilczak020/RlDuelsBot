@@ -1,5 +1,6 @@
 'use strict';
 import 'babel-polyfill';
+import * as dotenv from 'dotenv';
 import { isNil } from 'lodash';
 import { Bot } from './core/bot';
 import { loadConfig } from './core/config';
@@ -12,10 +13,12 @@ import { EchoHandler } from './handler/echoHandler';
 import { UrbanHandler } from './handler/urbanHandler';
 import { UserActionHandler } from '../build/handler/userActionHandler';
 
+dotenv.config();
+
 const logger = createLogger();
 const config = loadConfig('./build/config.yml');
-const database = createDatabase(config.database);
-const bot = new Bot(config, logger);
+const database = createDatabase();
+const bot = new Bot(logger);
 
 database.sequelize.authenticate().then((errors) => {
   if (!isNil(errors)) {
