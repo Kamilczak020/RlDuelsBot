@@ -29,5 +29,5 @@ build-and-push-docker-image:
   script:
     - docker login -u $DOCKERHUB_LOGIN -p $DOCKERHUB_PASSWORD
     - docker build -t rlduelsbot .
-    - docker tag $CI_PROJECT_PATH $CI_PROJECT_PATH:$CI_COMMIT_SHA
-    - docker push $CI_PROJECT_PATH:$CI_COMMIT_SHA
+    - docker tag $DOCKERHUB_PROJECT_PATH $DOCKERHUB_PROJECT_PATH:$CI_COMMIT_SHA
+    - docker push $DOCKERHUB_PROJECT_PATH:$CI_COMMIT_SHA
