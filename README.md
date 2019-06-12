@@ -44,45 +44,14 @@ To do that, you can execute the included `init-db.sql` file (Postgres), by runni
 psql -h database_host -U database_username -d database_name -a -f init-db.sql
 ```
 
-Besides all of that, you also need a bot `config.yml` file, that is to be placed in the `build` directory.
-An example config would look as such:
+Besides all of that, you also need an `.env` file, that is to be placed in the project root directory.
+Env variables required to run the bot are as following:
 ```
-bot:
-  token: 'YOUR_DISCORD_BOT_TOKEN'
-
-database:
-  database: 'exampledb'
-  dialect: 'postgres'
-  host: '127.0.0.1:5432'
-  username: 'exampleUser'
-  password: 'examplePassword'
-
-parsers:
-  echoParser:
-    name: 'echoParser'
-    commands:
-      - '!echo'
-      - '!kick'
-      - '!ban'
-      - '!urban'
-  splitParser:
-    name: 'splitParser'
-    commands:
-
-handlers:
-  echoHandler:
-    name: 'echoHandler'
-    commands:
-      - '!echo'
-  userActionHandler:
-    name: 'userActionHandler'
-    commands: 
-      - '!kick'
-      - 'ban'
-  urbanHandler:
-    name: 'urbanHandler'
-    commands:
-      - '!urban'
+DISCORD_TOKEN="your discord bot token"
+DB_NAME="database name"
+DB_HOST="database host"
+DB_USERNAME="database username"
+DB_PASSWORD="database password"
 ```
 
 ## Roadmap
@@ -91,6 +60,7 @@ handlers:
 - [x] Implement handlers and parsers for bot functions and commands
 - [x] Write tests
 - [x] Introduce a CI pipeline
+- [x] Move config secrets to .env file
 - [ ] Implement custom command handling and execution
 - [ ] Move build into a docker container
 - [ ] Create a GitPod for easier maintainability
