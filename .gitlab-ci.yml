@@ -20,6 +20,9 @@ run-tests:
   stage: test
   script: yarn run coverage
 
+before-script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
 build-and-push-docker-image:
   stage: build-docker
   only: [master]
@@ -27,7 +30,7 @@ build-and-push-docker-image:
   services:
     - docker:dind
   script:
-    - docker login -u $DOCKERHUB_LOGIN -p $DOCKERHUB_PASSWORD
-    - docker build -t rlduelsbot .
-    - docker tag $DOCKERHUB_PROJECT_PATH $DOCKERHUB_PROJECT_PATH:$CI_COMMIT_SHA
-    - docker push $DOCKERHUB_PROJECT_PATH:$CI_COMMIT_SHA
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY_IMAGE:latest
