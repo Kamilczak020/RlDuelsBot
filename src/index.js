@@ -1,11 +1,15 @@
 'use strict';
 import 'babel-polyfill';
 import * as dotenv from 'dotenv';
+import * as express from 'express';
 import { isNil } from 'lodash';
 import { Bot } from './core/bot';
 import { loadConfig } from './core/config';
 import { createDatabase } from './core/database';
 import { createLogger } from './core/logger';
+
+import { livenessHealthcheck } from './healthcheck/liveness';
+import { readinessHealthcheck } from './healthcheck/readiness';
 
 import { EchoParser } from './parser/echoParser';
 import { SplitParser } from './parser/splitParser';
@@ -15,6 +19,7 @@ import { UserActionHandler } from '../build/handler/userActionHandler';
 
 dotenv.config();
 
+const app = express();
 const logger = createLogger();
 const config = loadConfig('./build/config.yml');
 const database = createDatabase();
@@ -25,7 +30,11 @@ database.sequelize.authenticate().then((errors) => {
     logger.error({ errors }, 'Failed to connect to database');
     process.exit();
   }
-})
+});
+
+// Healthchecks
+app.get('/health/liveness', livenessHealthcheck);
+app.get('/health/readiness', (req, res, next) => readinessHealthcheck(database, res));
 
 // register parsers
 bot.registerService(EchoParser, 'parser', config.parsers.echoParser);
@@ -44,8 +53,9 @@ if (process.argv[2] === 'sync') {
   }
 }
 
-bot.start();
-
 process.on('exit', () => {
   bot.stop();
 });
+
+bot.start();
+app.listen(process.env.APP_PORT);

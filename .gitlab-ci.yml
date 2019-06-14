@@ -3,7 +3,8 @@ image: node:latest
 stages:
   - build
   - test
-  - build-docker
+  - containerize
+  - deploy
 
 cache:
   paths:
@@ -22,15 +23,13 @@ run-tests:
 
 
 build-and-push-docker-image:
-  stage: build-docker
-  only: [master]
+  stage: containerize
   image: docker:git
   services:
     - docker:dind
   before_script:
     - docker login -u $DOCKERHUB_LOGIN -p $DOCKERHUB_PASSWORD
   script:
-    - docker pull $DOCKERHUB_REGISTRY_IMAGE:latest || true
-    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $DOCKERHUB_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $DOCKERHUB_REGISTRY_IMAGE:latest .
-    - docker push $DOCKERHUB_REGISTRY_IMAGE:$CI_COMMIT_SHA
-    - docker push $DOCKERHUB_REGISTRY_IMAGE:latest
+    - docker pull $DOCKERHUB_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG || true
+    - docker build --cache-from $DOCKERHUB_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG --tag $DOCKERHUB_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG .
+    - docker push $DOCKERHUB_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
