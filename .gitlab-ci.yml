@@ -12,8 +12,6 @@ cache:
 
 install-dependencies:
   stage: build
-  tags: 
-    - build
   script: yarn
   artifacts:
     paths:
@@ -21,15 +19,11 @@ install-dependencies:
 
 run-tests:
   stage: test
-  tags: 
-    - build
   script: yarn run coverage
 
 
 build-and-push-docker-image:
   stage: containerize
-  tags: 
-    - build
   image: docker:git
   services:
     - docker:dind
@@ -42,8 +36,6 @@ build-and-push-docker-image:
 
 deploy-to-cluster:
   stage: deploy
-  tags: 
-    - deployment
   image: greenchill/kubernetes-deploy:master
   script:
     - sed -i "s/<VERSION>/${CI_COMMIT_REF_SLUG}/g" $DEPLOYMENT_MANIFEST
