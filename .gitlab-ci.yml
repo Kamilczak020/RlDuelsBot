@@ -13,7 +13,7 @@ cache:
 install-dependencies:
   stage: build
   tags:
-    - builder
+    - gitlab-org
   script: yarn
   artifacts:
     paths:
@@ -22,21 +22,20 @@ install-dependencies:
 run-tests:
   stage: test
   tags:
-    - builder
+    - gitlab-org
   script: yarn run coverage
 
 
 build-and-push-docker-image:
   stage: containerize
   tags:
-    - builder
+    - gitlab-org
   image: docker:git
   services:
     - docker:dind
   before_script:
     - docker login -u $DOCKERHUB_LOGIN -p $DOCKERHUB_PASSWORD
   script:
-    - export DOCKER_HOST="tcp://localhost:2375"
     - docker pull $DOCKERHUB_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG || true
     - docker build --cache-from $DOCKERHUB_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG --tag $DOCKERHUB_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG .
     - docker push $DOCKERHUB_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
