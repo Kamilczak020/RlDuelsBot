@@ -32,11 +32,10 @@ build-and-push-docker-image:
     - gitlab-org
   image: docker:git
   services:
-    - docker:dind
+    - docker:18.06.3-dind
   before_script:
     - docker login -u $DOCKERHUB_LOGIN -p $DOCKERHUB_PASSWORD
   script:
-    - export DOCKER_HOST="tcp://0.0.0.0:2375/"
     - docker pull $DOCKERHUB_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG || true
     - docker build --cache-from $DOCKERHUB_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG --tag $DOCKERHUB_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG .
     - docker push $DOCKERHUB_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
