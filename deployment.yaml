@@ -34,31 +34,31 @@ spec:
             initialDelaySeconds: 2
             periodSeconds: 60
       env:
-        - name: DISCORD_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: rlduels-secret
-            key: DISCORD_TOKEN
-        - name: DB_NAME
-        valueFrom:
-          secretKeyRef:
-            name: rlduels-secret
-            key: DB_NAME
-        - name: DB_HOST
-        valueFrom:
-          secretKeyRef:
-            name: rlduels-secret
-            key: DB_HOST
-        - name: DB_USERNAME
-        valueFrom:
-          secretKeyRef:
-            name: rlduels-secret
-            key: DB_USERNAME
-        - name: DB_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: rlduels-secret
-            key: DB_PASSWORD
+      - name: DISCORD_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: rlduels-secret
+          key: DISCORD_TOKEN
+      - name: DB_NAME
+      valueFrom:
+        secretKeyRef:
+          name: rlduels-secret
+          key: DB_NAME
+      - name: DB_HOST
+      valueFrom:
+        secretKeyRef:
+          name: rlduels-secret
+          key: DB_HOST
+      - name: DB_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: rlduels-secret
+          key: DB_USERNAME
+      - name: DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: rlduels-secret
+          key: DB_PASSWORD
       
       volumes:
       - name: service-key
