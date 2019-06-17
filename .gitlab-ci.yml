@@ -46,7 +46,5 @@ deploy-to-cluster:
     - builder
   image: greenchill/kubernetes-deploy:master
   script:
-    - kubectl config set-context default --user=gitlab-ci
-    - kubectl config use-context default
     - sed -i "s/<VERSION>/${CI_COMMIT_REF_SLUG}/g" $DEPLOYMENT_MANIFEST
     - kubectl apply -f $DEPLOYMENT_MANIFEST

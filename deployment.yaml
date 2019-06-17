@@ -13,7 +13,7 @@ spec:
       labels:
         app: rlduelsbot
     spec:
-      serviceAccountName: gitlab-ci
+      serviceAccountName: rlduels-user-admin
       containers:
       - name: rlduelsbot
         image: greenchill/rlduelsbot:master
