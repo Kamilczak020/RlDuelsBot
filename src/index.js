@@ -1,7 +1,7 @@
 'use strict';
 import 'babel-polyfill';
 import * as dotenv from 'dotenv';
-import * as express from 'express';
+import express from 'express';
 import { isNil } from 'lodash';
 import { Bot } from './core/bot';
 import { loadConfig } from './core/config';
@@ -58,4 +58,4 @@ process.on('exit', () => {
 });
 
 bot.start();
-app.listen(process.env.APP_PORT);
+app.listen(8080);
