@@ -17,6 +17,7 @@ spec:
       containers:
       - name: rlduelsbot
         image: greenchill/rlduelsbot:master
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         livenessProbe:
