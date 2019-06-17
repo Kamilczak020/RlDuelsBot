@@ -29,10 +29,10 @@ run-tests:
 build-and-push-docker-image:
   stage: containerize
   tags:
-    - gitlab-org
+    - docker
   image: docker:git
   services:
-    - docker:18.06.3-dind
+    - docker:dind
   before_script:
     - docker login -u $DOCKERHUB_LOGIN -p $DOCKERHUB_PASSWORD
   script:
