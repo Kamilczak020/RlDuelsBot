@@ -23,6 +23,7 @@ RUN npm run build
 FROM base AS release
 COPY --from=dependencies /usr/src/app/prod_node_modules ./node_modules
 COPY --from=build /usr/src/app/build ./build
+COPY deployment.yaml .
 
 # --- Entrypoint command ---
 CMD npm run start

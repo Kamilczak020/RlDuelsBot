@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rlduelsbot-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rlduelsbot
+  template:
+    metadata:
+      labels:
+        app: rlduelsbot
+    spec:
+      containers:
+        - name: rlduelsbot
+          image: greenchill/rlduelsbot:master
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: service-key
+              mountPath: /root/key.json
+              subPath: key.json
+          livenessProbe:
+            httpGet:
+              path: /health/liveness
+              port: 8080
+            initialDelaySeconds: 2
+            periodSeconds: 60
+          readinessProbe:
+            httpGet:
+              path: /health/readiness
+              port: 8080
+            initialDelaySeconds: 2
+            periodSeconds: 60
+      env:
+        - name: DISCORD_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: rlduels-secret
+            key: DISCORD_TOKEN
+        - name: DB_NAME
+        valueFrom:
+          secretKeyRef:
+            name: rlduels-secret
+            key: DB_NAME
+        - name: DB_HOST
+        valueFrom:
+          secretKeyRef:
+            name: rlduels-secret
+            key: DB_HOST
+        - name: DB_USERNAME
+        valueFrom:
+          secretKeyRef:
+            name: rlduels-secret
+            key: DB_USERNAME
+        - name: DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: rlduels-secret
+            key: DB_PASSWORD
+      
+      volumes:
+      - name: service-key
+        secret:
+          secretName: rlduels-secret
+          items:
+          - key: service-account-key
+            path: key.json
+      
