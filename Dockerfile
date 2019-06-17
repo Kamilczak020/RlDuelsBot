@@ -17,6 +17,7 @@ FROM dependencies AS build
 COPY src ./src
 COPY config ./config
 COPY gulpfile.js .
+COPY .babelrc .
 RUN npm run build
 
 # --- Release ---
