@@ -42,6 +42,7 @@ build-and-push-docker-image:
 
 deploy-to-cluster:
   stage: deploy
+  only: [master]
   tags:
     - builder
   image: greenchill/kubernetes-deploy:master

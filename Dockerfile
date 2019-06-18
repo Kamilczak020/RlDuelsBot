@@ -27,5 +27,4 @@ COPY --from=build /usr/src/app/build ./build
 COPY deployment.yaml .
 
 # --- Entrypoint command ---
-EXPOSE 8080
 CMD npm run start

@@ -60,11 +60,12 @@ DB_PASSWORD="database password"
 - [x] Implement handlers and parsers for bot functions and commands
 - [x] Write tests
 - [x] Introduce a CI pipeline
-- [x] Move config secrets to .env file
+- [x] Move config secrets to .env file for development
+- [x] Move build into a docker container
+- [x] Introduce a CD pipeline
+- [ ] Implement bad word filter
+- [ ] Implement role-based command handling
 - [ ] Implement custom command handling and execution
-- [ ] Move build into a docker container
-- [ ] Create a GitPod for easier maintainability
-- [ ] Introduce a CD pipeline
 
 ## How to contribute
 IF you choose to contribute to the repository, you can do so by posting issues and sending in PRs, 
