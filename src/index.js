@@ -33,7 +33,7 @@ database.sequelize.authenticate().then((errors) => {
 });
 
 // Healthchecks
-app.get('/health/liveness', livenessHealthcheck);
+app.get('/health/liveness', (req, res, next) => livenessHealthcheck(req, res, next));
 app.get('/health/readiness', (req, res, next) => readinessHealthcheck(database, res));
 
 // register parsers
