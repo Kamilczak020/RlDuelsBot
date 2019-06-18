@@ -58,4 +58,4 @@ process.on('exit', () => {
 });
 
 bot.start();
-app.listen(8080);
+app.listen(8080, () => console.log('started'));
