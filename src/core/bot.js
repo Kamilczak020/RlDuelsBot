@@ -13,6 +13,7 @@ export class Bot {
 
     this.parsers = [];
     this.handlers = [];
+    this.filters = [];
 
     this.client = new Client();
   }
@@ -53,6 +54,12 @@ export class Bot {
    * @param {*} msg message to parse
    */
   async handleIncoming(msg) {
+    await Promise.all(this.filters.forEach(async (filter) => {
+      if (await filter.check(msg)) {
+        return;
+      }
+    }));
+
     this.parsers.forEach(async (parser) => {
       if (await parser.check(msg)) {
         try {
@@ -61,6 +68,7 @@ export class Bot {
           this.commands.next(command);
           return;
         } catch (err) {
+          console.log(err);
           this.logger.error('Parser failed to parse the message');
         }
       }
@@ -79,6 +87,7 @@ export class Bot {
         try {
           return await handler.handle(cmd);
         } catch (err) {
+          console.log(err);
           this.logger.error('Handler failed to handle the message');
         }
       }
@@ -117,6 +126,9 @@ export class Bot {
         break;
       case 'handler':
         this.handlers.push(service);
+        break;
+      case 'filter':
+        this.filters.push(service);
         break;
     }
 

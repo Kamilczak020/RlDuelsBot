@@ -12,6 +12,8 @@ import { SplitParser } from './parser/splitParser';
 import { EchoHandler } from './handler/echoHandler';
 import { UrbanHandler } from './handler/urbanHandler';
 import { UserActionHandler } from '../build/handler/userActionHandler';
+import { DefineHandler } from './handler/defineHandler';
+import { BadWordFilter } from './filter/badWordFilter';
 
 dotenv.config();
 
@@ -35,6 +37,10 @@ bot.registerService(SplitParser, 'parser', config.parsers.splitParser);
 bot.registerService(EchoHandler, 'handler', config.handlers.echoHandler);
 bot.registerService(UserActionHandler, 'handler', config.handlers.userActionHandler);
 bot.registerService(UrbanHandler, 'handler', config.handlers.urbanHandler);
+bot.registerService(DefineHandler, 'handler', config.handlers.defineHandler);
+
+// register filters
+bot.registerService(BadWordFilter, 'filter', config.filters.badWordFilter);
 
 if (process.argv[2] === 'sync') {
   try {

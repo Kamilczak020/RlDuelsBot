@@ -7,12 +7,18 @@ parsers:
       - 'kick'
       - 'ban'
       - 'urban'
+      - 'define'
   splitParser:
     name: 'splitParser'
     prefix: '!'
     commands:
 
 handlers:
+  defineHandler:
+    name: 'defineHandler'
+    resultsLimit: 3
+    commands:
+      - 'define'
   echoHandler:
     name: 'echoHandler'
     commands: 
@@ -26,3 +32,23 @@ handlers:
     commands:
       - 'ban'
       - 'kick'
+
+filters:
+  badWordFilter:
+    name: 'badWordFilter'
+    filteredWords:
+      - 'nigger'
+      - 'cunt'
+      - 'retard'
+      - 'retarded'
+      - 'tranny'
+      - 'shemale'
+      - 'sjw'
+      - 'trannie'
+      - 'spaz'
+      - 'spastic'
+      - 'kys'
+      - 'coon'
+      - 'fag'
+      - 'faggot'
+      - 'niglet'
